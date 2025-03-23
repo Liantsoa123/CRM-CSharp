@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Crm_CSharp.Models;
 
-public partial class TriggerTicket
+public partial class Ticket
 {
     public uint TicketId { get; set; }
 
@@ -15,15 +15,7 @@ public partial class TriggerTicket
 
     public string? Priority { get; set; }
 
-    public uint CustomerId { get; set; }
-
-    public int? ManagerId { get; set; }
-
-    public int? EmployeeId { get; set; }
-
     public DateTime? CreatedAt { get; set; }
-
-    public long? ExpenseId { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 

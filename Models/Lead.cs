@@ -3,19 +3,13 @@ using System.Collections.Generic;
 
 namespace Crm_CSharp.Models;
 
-public partial class TriggerLead
+public partial class Lead
 {
     public uint LeadId { get; set; }
-
-    public uint CustomerId { get; set; }
-
-    public int? UserId { get; set; }
 
     public string? Name { get; set; }
 
     public string? Phone { get; set; }
-
-    public int? EmployeeId { get; set; }
 
     public string? Status { get; set; }
 
@@ -26,8 +20,6 @@ public partial class TriggerLead
     public string? GoogleDriveFolderId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
-
-    public long? ExpenseId { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 
@@ -40,8 +32,6 @@ public partial class TriggerLead
     public virtual ICollection<GoogleDriveFile> GoogleDriveFiles { get; set; } = new List<GoogleDriveFile>();
 
     public virtual ICollection<LeadAction> LeadActions { get; set; } = new List<LeadAction>();
-
-    public virtual ICollection<TriggerContract> TriggerContracts { get; set; } = new List<TriggerContract>();
-
-    public virtual User? User { get; set; }
+    
+    public virtual User? Manager { get; set; }
 }
