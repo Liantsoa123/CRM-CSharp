@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Crm_CSharp.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Gestion des tickets";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Sujet</th>
+            <th>Description</th>
+            <th>Statut</th>
+            <th>Priorité</th>
+            <th>Client</th>
+            <th>Employé</th>
+            <th>Date de création</th>
+            <th>Montant</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.Subject</td>
+                <td>@ticket.Description</td>
+                <td>
+                    <span class="badge @(ticket.Status == "Ouvert" ? "bg-success" : "bg-danger")">
+                        @ticket.Status
+                    </span>
+                </td>
+                <td>
+                    <span class="badge @(ticket.Priority == "Haute" ? "bg-danger" : "bg-warning")">
+                        @ticket.Priority
+                    </span>
+                </td>
+                <td>@ticket.Customer?.Name</td>
+                <td>@ticket.Employee?.Username</td>
+                <td>@ticket.CreatedAt?.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @if (ticket.Expense != null)
+                    {
+                        @ticket.Expense.Amount
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Expense" asp-route-id="@ticket.Expense.ExpenseId" asp-route-source="ticket" asp-route-sourceId="@ticket.TicketId"  class="btn btn-sm btn-warning">Modifier</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
