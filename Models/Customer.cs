@@ -6,7 +6,6 @@ namespace Crm_CSharp.Models;
 public partial class Customer
 {
     public uint CustomerId { get; set; }
-
     public string? Name { get; set; }
 
     public string? Phone { get; set; }
@@ -18,8 +17,6 @@ public partial class Customer
     public string? State { get; set; }
 
     public string? Country { get; set; }
-
-    public int? UserId { get; set; }
 
     public string? Description { get; set; }
 
@@ -34,18 +31,8 @@ public partial class Customer
     public DateTime? CreatedAt { get; set; }
 
     public string? Email { get; set; }
-
-    public int? ProfileId { get; set; }
-
-    public virtual ICollection<Budget> Budgets { get; set; } = new List<Budget>();
-
+    
     public virtual CustomerLoginInfo? Profile { get; set; }
-
-    public virtual ICollection<TriggerContract> TriggerContracts { get; set; } = new List<TriggerContract>();
-
-    public virtual ICollection<TriggerLead> TriggerLeads { get; set; } = new List<TriggerLead>();
-
-    public virtual ICollection<TriggerTicket> TriggerTickets { get; set; } = new List<TriggerTicket>();
-
+    
     public virtual User? User { get; set; }
 }
