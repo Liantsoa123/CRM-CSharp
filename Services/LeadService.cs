@@ -34,4 +34,11 @@ public class LeadService
         return new List<Lead>();
     }
     
+    //Supprimer une lead par son id 
+    public async Task<bool> DeleteLeadAsync(long id)
+    {
+        var response = await _httpClient.DeleteAsync($"/api/leads/{id}");
+        return response.IsSuccessStatusCode;
+    }
+    
 }
