@@ -18,4 +18,15 @@ public class TicketController : Controller
         var tickets = await _ticketService.GetAllTicketsAsync();
         return View(tickets);
     }
+    
+  
+    public async Task<IActionResult> Delete(long id)
+    {
+        var result = await _ticketService.DeleteTicketAsync(id);
+        if (result)
+        {
+            return RedirectToAction("Index");
+        }
+        return NotFound();
+    }
 }
