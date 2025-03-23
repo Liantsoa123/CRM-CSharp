@@ -10,7 +10,7 @@
     <!-- Cartes statistiques -->
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="card bg-primary text-white">
+            <div id="ticketsCard" class="card bg-primary text-white" style="cursor: pointer;">
                 <div class="card-body">
                     <h5 class="card-title">Total Tickets</h5>
                     <h2 class="card-text">@Model.Sum(s => s.TicketCount)</h2>
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-success text-white">
+            <div id="leadsCard" class="card bg-success text-white" style="cursor: pointer;">
                 <div class="card-body">
                     <h5 class="card-title">Total Leads</h5>
                     <h2 class="card-text">@Model.Sum(s => s.LeadCount)</h2>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-info text-white">
+            <div id="budgetCard" class="card bg-info text-white" style="cursor: pointer;">
                 <div class="card-body">
                     <h5 class="card-title">Budget Total</h5>
                     <h2 class="card-text">@Model.Sum(s => s.TotalBudget).ToString("C")</h2>
@@ -69,6 +69,19 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+
+        document.getElementById('ticketsCard').addEventListener('click', function() {
+            window.location.href = '@Url.Action("Index", "Ticket")';
+        });
+
+        document.getElementById('leadsCard').addEventListener('click', function() {
+            window.location.href = '@Url.Action("Index", "Lead")';
+        });
+        
+        document.getElementById('budgetCard').addEventListener('click', function() {
+            window.location.href = '@Url.Action("Index", "Budget")';
+        });
+
         // Préparation des données
         const customers = @Json.Serialize(Model.Select(s => s.CustomerName).ToList());
         const tickets = @Json.Serialize(Model.Select(s => s.TicketCount).ToList());
