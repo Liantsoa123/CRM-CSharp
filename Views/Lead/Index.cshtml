@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<Crm_CSharp.Models.Lead>
+
+@{
+    ViewData["Title"] = "Gestion des leads";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Employée</th>
+            <th>Customer</th>
+            <th>Montant</th>
+            <th>Statut</th>
+            <th>Date de création</th>
+            <th>Google Drive</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var lead in Model)
+        {
+            <tr>
+                <td>@lead.Name</td>
+                <td>@lead.Employee.Username</td>
+                <td>@lead.Customer.Name</td>
+                <td>@lead.Expense.Amount</td>
+                <td>@lead.Status</td>
+                <td>@lead.CreatedAt?.ToString("dd/MM/yyyy")</td>
+                
+                <td>
+                    @if (lead.GoogleDrive == true)
+                    {
+                        <span class="badge bg-success">Oui</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Non</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@lead.LeadId" class="btn btn-sm btn-warning">Modifier</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
