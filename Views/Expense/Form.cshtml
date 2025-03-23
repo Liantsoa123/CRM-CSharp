@@ -9,8 +9,9 @@
         <div class="col-md-6">
             <h2>@ViewData["Title"]</h2>
 
-            <form asp-action="Save" method="post">
+            <form asp-action="Update" method="post">
                 <input type="hidden" asp-for="ExpenseId" />
+                <input type="hidden" name="source" value="@ViewData["Source"]" />
                 <input type="hidden" asp-for="Budget.BudgetId" />
 
                 <div class="form-group mb-3">
