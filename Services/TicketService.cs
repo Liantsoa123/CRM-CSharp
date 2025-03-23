@@ -32,4 +32,12 @@ public class TicketService
         }
         return new List<Ticket>();
     }
+    
+    // Supprimer une ticket par son id 
+    public async Task<bool> DeleteTicketAsync(long id)
+    {
+        var response = await _httpClient.DeleteAsync($"/api/tickets/{id}");
+        return response.IsSuccessStatusCode;
+    }
+    
 }
