@@ -19,4 +19,14 @@ public class LeadController : Controller
         return View(leads);
     }
     
+    public async Task<IActionResult> Delete(long id)
+    {
+        var result = await _leadService.DeleteLeadAsync(id);
+        if (result)
+        {
+            return RedirectToAction("Index");
+        }
+        return NotFound();
+    }
+    
 }
