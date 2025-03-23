@@ -11,6 +11,8 @@ builder.Services.AddHttpClient<LeadService>(client => { client.BaseAddress = new
 
 builder.Services.AddHttpClient<TicketService>(client => { client.BaseAddress = new Uri("http://localhost:8080"); });
 
+builder.Services.AddHttpClient<CustomerStatisticsDTOService>(client =>{client.BaseAddress = new Uri("http://localhost:8080");});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
