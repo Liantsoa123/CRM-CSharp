@@ -1,0 +1,40 @@
+@model IEnumerable<Crm_CSharp.Models.Budget>
+
+@{
+    ViewData["Title"] = "Gestion des budgets";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Montant</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Client</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var budget in Model)
+        {
+            <tr>
+                <td>@budget.Name</td>
+                <td>@budget.Amount.ToString("C")</td>
+                <td>@budget.StartDate.ToString("dd/MM/yyyy")</td>
+                <td>@budget.EndDate.ToString("dd/MM/yyyy")</td>
+                <td>@budget.Customer.Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
