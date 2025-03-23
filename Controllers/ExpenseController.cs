@@ -51,7 +51,7 @@ namespace Crm_CSharp.Controllers
             if (result != null)
             {
                 TempData["Message"] = "Dépense enregistrée avec succès";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Lead");
             }
 
             ModelState.AddModelError("Message", "Erreur lors de l'enregistrement de la dépense");
