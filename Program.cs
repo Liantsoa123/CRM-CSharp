@@ -1,4 +1,12 @@
+using Crm_CSharp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddHttpClient<AlertRateService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:8080");
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
