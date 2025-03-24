@@ -13,5 +13,5 @@ public partial class Expense
 
     public string? Description { get; set; }
     
-    public virtual Budget Budget { get; set; } = null!;
+    public virtual Budget? Budget { get; set; } = null!;
 }
