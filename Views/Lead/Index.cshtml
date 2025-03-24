@@ -36,7 +36,7 @@
                 <td>@lead.Name</td>
                 <td>@lead.Employee.Username</td>
                 <td>@lead.Customer.Name</td>
-                <td>@lead.Expense.Amount</td>
+                <td>@lead.Expense?.Amount</td>
                 <td>@lead.Status</td>
                 <td>@lead.CreatedAt?.ToString("dd/MM/yyyy")</td>
                 
@@ -51,7 +51,10 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-controller="Expense" asp-route-id="@lead.Expense.ExpenseId" asp-route-source="lead" class="btn btn-sm btn-warning">Modifier</a>
+                    @if (lead.Expense != null)
+                    {
+                        <a asp-action="Edit" asp-controller="Expense" asp-route-id="@lead.Expense.ExpenseId" asp-route-source="lead" class="btn btn-sm btn-warning">Modifier</a>
+                    }
                 </td>
                 <td>
                     <a asp-action="Delete" asp-controller="Lead" asp-route-id="@lead.LeadId" class="btn btn-sm btn-danger">Supprimer</a>
