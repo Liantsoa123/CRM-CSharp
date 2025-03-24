@@ -11,6 +11,12 @@ builder.Services.AddHttpClient<LeadService>(client => { client.BaseAddress = new
 
 builder.Services.AddHttpClient<TicketService>(client => { client.BaseAddress = new Uri("http://localhost:8080"); });
 
+builder.Services.AddHttpClient<CustomerStatisticsDTOService>(client =>{client.BaseAddress = new Uri("http://localhost:8080");});
+
+builder.Services.AddHttpClient<BudgetService>(client => { client.BaseAddress = new Uri("http://localhost:8080"); });
+
+builder.Services.AddHttpClient<UserService>(client =>{ client.BaseAddress = new Uri("http://localhost:8080"); });
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -33,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Auth}/{action=Login}/{id?}");
 
 app.Run();

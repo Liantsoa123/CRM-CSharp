@@ -1,0 +1,177 @@
+@model List<Crm_CSharp.Models.Statistics.CustomerStatisticsDTO>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    <!-- Cartes statistiques -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div id="ticketsCard" class="card bg-primary text-white" style="cursor: pointer;">
+                <div class="card-body">
+                    <h5 class="card-title">Total Tickets</h5>
+                    <h2 class="card-text">@Model.Sum(s => s.TicketCount)</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="leadsCard" class="card bg-success text-white" style="cursor: pointer;">
+                <div class="card-body">
+                    <h5 class="card-title">Total Leads</h5>
+                    <h2 class="card-text">@Model.Sum(s => s.LeadCount)</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="budgetCard" class="card bg-info text-white" style="cursor: pointer;">
+                <div class="card-body">
+                    <h5 class="card-title">Budget Total</h5>
+                    <h2 class="card-text">@Model.Sum(s => s.TotalBudget).ToString("C")</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphiques -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tickets par Client</h5>
+                    <canvas id="ticketsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Leads par Client</h5>
+                    <canvas id="leadsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Budget par Client</h5>
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        document.getElementById('ticketsCard').addEventListener('click', function() {
+            window.location.href = '@Url.Action("Index", "Ticket")';
+        });
+
+        document.getElementById('leadsCard').addEventListener('click', function() {
+            window.location.href = '@Url.Action("Index", "Lead")';
+        });
+        
+        document.getElementById('budgetCard').addEventListener('click', function() {
+            window.location.href = '@Url.Action("Index", "Budget")';
+        });
+
+        // Préparation des données
+        const customers = @Json.Serialize(Model.Select(s => s.CustomerName).ToList());
+        const tickets = @Json.Serialize(Model.Select(s => s.TicketCount).ToList());
+        const leads = @Json.Serialize(Model.Select(s => s.LeadCount).ToList());
+        const budgets = @Json.Serialize(Model.Select(s => s.TotalBudget).ToList());
+
+        // Fonction pour générer des couleurs aléatoires
+        function generateColors(count) {
+            const colors = [];
+            for (let i = 0; i < count; i++) {
+                colors.push(`hsl(${(i * 360) / count}, 70%, 60%)`);
+            }
+            return colors;
+        }
+
+        const colors = generateColors(customers.length);
+
+        // Graphique des tickets
+        new Chart(document.getElementById('ticketsChart'), {
+            type: 'pie',
+            data: {
+                labels: customers,
+                datasets: [{
+                    data: tickets,
+                    backgroundColor: colors,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribution des tickets'
+                    }
+                }
+            }
+        });
+
+        // Graphique des leads
+        new Chart(document.getElementById('leadsChart'), {
+            type: 'pie',
+            data: {
+                labels: customers,
+                datasets: [{
+                    data: leads,
+                    backgroundColor: colors,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribution des leads'
+                    }
+                }
+            }
+        });
+
+        // Graphique des budgets
+        new Chart(document.getElementById('budgetChart'), {
+            type: 'pie',
+            data: {
+                labels: customers,
+                datasets: [{
+                    data: budgets,
+                    backgroundColor: colors,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribution des budgets'
+                    }
+                }
+            }
+        });
+    </script>
+}
