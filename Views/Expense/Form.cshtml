@@ -1,3 +1,4 @@
+@using Crm_CSharp.Models
 @model Crm_CSharp.Models.Expense
 
 @{
@@ -12,8 +13,11 @@
             <form asp-action="Update" method="post">
                 <input type="hidden" asp-for="ExpenseId" />
                 <input type="hidden" name="source" value="@ViewData["Source"]" />
-                <input type="hidden" asp-for="Budget.BudgetId" />
-
+                
+                @if (Model.Budget != null)
+                {
+                    <input type="hidden" asp-for="Budget.BudgetId"/>
+                }
                 <div class="form-group mb-3">
                     <label asp-for="Amount" class="form-label">Montant</label>
                     <input asp-for="Amount" class="form-control" type="number" step="0.01" />
