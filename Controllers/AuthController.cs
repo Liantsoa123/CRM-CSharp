@@ -19,9 +19,9 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(string email)
+    public async Task<IActionResult> Login(string email , string password)
     {
-        var user = await _userService.GetUserByEmailAsync(email);
+        var user = await _userService.GetUserByEmailAsync(email , password);
         if (user == null)
         {
             ModelState.AddModelError("", "Utilisateur non trouvé");
