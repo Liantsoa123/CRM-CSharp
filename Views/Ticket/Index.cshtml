@@ -48,14 +48,12 @@
                 <td>@ticket.Customer?.Name</td>
                 <td>@ticket.Employee?.Username</td>
                 <td>@ticket.CreatedAt?.ToString("dd/MM/yyyy")</td>
+                <td>@ticket.Expense?.Amount</td>
                 <td>
                     @if (ticket.Expense != null)
                     {
-                        @ticket.Expense.Amount
+                        <a asp-action="Edit" asp-controller="Expense" asp-route-id="@ticket.Expense.ExpenseId" asp-route-source="ticket" class="btn btn-sm btn-warning">Modifier</a>
                     }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-controller="Expense" asp-route-id="@ticket.Expense.ExpenseId" asp-route-source="ticket" class="btn btn-sm btn-warning">Modifier</a>
                 </td>
                 <td>
                     <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@ticket.TicketId" class="btn btn-sm btn-danger">Supprimer</a>

@@ -7,9 +7,9 @@ namespace Crm_CSharp.Models.Statistics
     {
         public string CustomerName { get; set; }
         
-        public long TicketCount { get; set; }
+        public decimal TicketCount { get; set; }
         
-        public long LeadCount { get; set; }
+        public decimal LeadCount { get; set; }
         
         public int CustomerId { get; set; }
         

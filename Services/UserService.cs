@@ -10,11 +10,11 @@ public class UserService
         _httpClient = httpClient;
     }
     
-    public async Task<User?> GetUserByEmailAsync(string email)
+    public async Task<User?> GetUserByEmailAsync(string email, string password)
     {
         try
         {
-            var response = await _httpClient.GetAsync($"/api/users/login?email={email}");
+            var response = await _httpClient.GetAsync($"/api/users/login?email={email}&&password={password}");
             if (response.IsSuccessStatusCode && response.Content.Headers.ContentLength > 0)
             {
                 var content = await response.Content.ReadAsStringAsync();
