@@ -17,6 +17,7 @@ builder.Services.AddHttpClient<BudgetService>(client => { client.BaseAddress = n
 
 builder.Services.AddHttpClient<UserService>(client =>{ client.BaseAddress = new Uri("http://localhost:8080"); });
 
+builder.Services.AddHttpClient<ImportService>(client => { client.BaseAddress = new Uri("http://localhost:8080"); });    
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
