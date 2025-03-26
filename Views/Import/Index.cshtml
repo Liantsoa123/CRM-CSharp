@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Importation JSON";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+                <div class="card-body">
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["Message"]
+                        </div>
+                    }
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["Error"]
+                        </div>
+                    }
+
+                    <form asp-action="Import" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="jsonFile" class="form-label">Fichier JSON</label>
+                            <input type="file" class="form-control" id="jsonFile" name="jsonFile" accept=".json" required>
+                            <small class="form-text text-muted">Sélectionnez un fichier JSON à importer</small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Importer</button>
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Annuler</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Validation côté client du type de fichier
+        document.getElementById('jsonFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && !file.name.toLowerCase().endsWith('.json')) {
+                alert('Veuillez sélectionner un fichier JSON valide');
+                this.value = '';
+            }
+        });
+    </script>
+}
