@@ -1,0 +1,47 @@
+@model IEnumerable<Crm_CSharp.Models.Expense>
+
+@{
+    ViewData["Title"] = "Gestion des dépenses";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Nouvelle dépense</a>
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Montant</th>
+            <th>Description</th>
+            <th>Budget</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ExpenseId</td>
+                    <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                    <td>@item.Amount.ToString("C")</td>
+                    <td>@item.Description</td>
+                    <td>@item.Budget.BudgetId</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ExpenseId" class="btn btn-sm btn-warning">Modifier</a>
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> 
